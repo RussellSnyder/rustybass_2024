@@ -1,0 +1,23 @@
+{
+  "name": "rustybass_2024",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "sync:types:common": "copy-and-watch --watch \"./rustybass_strapi/src/common/**/*.ts\" \"./rustybass_next/types/__generated__/common\"",
+    "sync:types:api": "copy-and-watch --watch \"./rustybass_strapi/src/api/**/*.ts\" \"./rustybass_next/types/__generated__/api\"",
+    "sync:types": "concurrently --kill-others \"npm run sync:types:common\" \"npm run sync:types:api\"",
+    "dev:backend": "npm run --prefix ./rustybass_strapi develop",
+    "dev:frontend": "npm run --prefix ./rustybass_next dev",
+    "build:frontend": "npm run --prefix ./rustybass_next build",
+    "build": "npm run build:frontend",
+    "dev": "concurrently --kill-others \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "copy-and-watch": "^0.1.6"
+  }
+}
