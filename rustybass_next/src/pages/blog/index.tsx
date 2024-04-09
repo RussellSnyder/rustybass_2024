@@ -1,5 +1,5 @@
+import { CldImage } from "next-cloudinary";
 import Head from "next/head";
-import Image from "next/image";
 import Link from "next/link";
 import { BlogPost } from "../../../types/__generated__/api/blog-post/content-types/blog-post/blog-post";
 import { getThumbnail } from "../../utils/image";
@@ -7,7 +7,7 @@ import styles from "./blog.module.css";
 
 export const getStaticProps = async () => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_STRAPI_API}/blog-posts?populate=featuredImage`
+    `${process.env.NEXT_PUBLIC_STRAPI_API}/blog-posts`
   );
   const result = await response.json();
 
@@ -23,6 +23,7 @@ interface BlogProps {
 }
 
 export default function Blog({ blogPosts }: BlogProps) {
+  console.log(blogPosts);
   return (
     <>
       <Head>
@@ -37,22 +38,12 @@ export default function Blog({ blogPosts }: BlogProps) {
               <div className={styles.flexing} key={blogPost.id}>
                 <Link href={`/blog/${blogPost.id}`}>
                   <div className={styles.featuredImageContainer}>
-                    <Image
-                      src={getThumbnail(
-                        blogPost.attributes.featuredImage?.data
-                      )}
-                      alt={
-                        blogPost.attributes.featuredImage.data.attributes
-                          .alternativeText
-                      }
-                      priority={true}
-                      className={`${styles.thumbnail}`}
-                      width={
-                        blogPost.attributes.featuredImage.data.attributes.width
-                      }
-                      height={
-                        blogPost.attributes.featuredImage.data.attributes.height
-                      }
+                    <CldImage
+                      className={styles.thumbnail}
+                      alt={blogPost.attributes.title ?? "blog post preview"}
+                      width="600"
+                      height="600"
+                      src={getThumbnail(blogPost.attributes.imageId)}
                     />
                   </div>
                   <h2>{blogPost.attributes.title}</h2>

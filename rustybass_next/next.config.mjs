@@ -10,6 +10,9 @@ const nextConfig = {
       {
         hostname: `${process.env.IMAGE_DOMAIN_SERVER_HOSTNAME}`,
       },
+      {
+        hostname: `res.cloudinary.com`,
+      },
     ],
   },
 };

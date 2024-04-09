@@ -25,12 +25,11 @@ with the backend running, build with:
 This will create an output folder that can be hosted on a static hosting solution like netlify or aws
 
 
-
-
-
 ### Version 1 (current)
 
 Render static site offline and publish on Netlify
+Images hosted on cloudinary (free)
+
 - Minimal overhead costs
 
 ### Version 2

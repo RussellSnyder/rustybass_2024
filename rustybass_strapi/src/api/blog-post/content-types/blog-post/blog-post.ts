@@ -11,6 +11,7 @@ export interface BlogPost {
     description?: string;
     featuredImage: { data: Media };
     body?: string;
+    imageId?: string;
   };
 }
 export interface BlogPost_Plain {
@@ -19,6 +20,7 @@ export interface BlogPost_Plain {
   description?: string;
   featuredImage: Media_Plain;
   body?: string;
+  imageId?: string;
 }
 
 export interface BlogPost_NoRelations {
@@ -27,6 +29,7 @@ export interface BlogPost_NoRelations {
   description?: string;
   featuredImage: number;
   body?: string;
+  imageId?: string;
 }
 
 export interface BlogPost_AdminPanelLifeCycle {
@@ -35,4 +38,5 @@ export interface BlogPost_AdminPanelLifeCycle {
   description?: string;
   featuredImage: AdminPanelRelationPropertyModification<Media_Plain>;
   body?: string;
+  imageId?: string;
 }

@@ -28,6 +28,9 @@
     },
     "body": {
       "type": "richtext"
+    },
+    "imageId": {
+      "type": "string"
     }
   }
 }

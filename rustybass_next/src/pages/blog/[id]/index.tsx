@@ -1,7 +1,8 @@
 import fm from "front-matter";
 import { marked } from "marked";
 import Head from "next/head";
-import Image from "next/image";
+import { CldImage } from "next-cloudinary";
+import { getImageUrl } from "../../../utils/image";
 import { BlogPost } from "../../../../types/__generated__/api/blog-post/content-types/blog-post/blog-post";
 import { Media } from "../../../../types/__generated__/common/schemas-to-ts/Media";
 import styles from "./blog-post.module.css";
@@ -27,43 +28,49 @@ export const getStaticProps = async ({
   params: { id: string };
 }) => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_STRAPI_API}/blog-posts/${params.id}?populate=featuredImage`
+    `${process.env.NEXT_PUBLIC_STRAPI_API}/blog-posts/${params.id}`
   );
   const result = await response.json();
   const parsedMarkdown = fm(result.data.attributes.body);
+  const post = result.data.attributes;
   const htmlString = marked(parsedMarkdown.body);
-  const featuredImage = result.data.attributes.featuredImage.data;
+  const featuredImageUrl = getImageUrl(result.data.attributes.imageId);
 
+  console.log(featuredImageUrl);
   return {
     props: {
-      featuredImage,
+      featuredImageUrl,
       htmlString,
-      data: parsedMarkdown.attributes,
+      post,
     },
   };
 };
 
 interface PostProps {
-  data: BlogPost["attributes"];
-  featuredImage: Media;
+  post: BlogPost["attributes"];
+  featuredImageUrl: string;
   htmlString: string;
 }
 
-export default function Post({ featuredImage, htmlString, data }: PostProps) {
+export default function Post({
+  featuredImageUrl,
+  htmlString,
+  post,
+}: PostProps) {
   return (
     <>
       <Head>
-        <title>{data.title}</title>
-        <meta name="description" content={data.description} />
+        <title>{post.title}</title>
+        <meta name="description" content={post.description} />
       </Head>
       <div className={styles.post}>
-        <Image
-          src={`${process.env.NEXT_PUBLIC_STRAPI_BASE}${featuredImage.attributes.url}`}
-          alt="blog-post"
-          priority={true}
-          className="rounded-xl w-full"
-          width={featuredImage.attributes.width}
-          height={featuredImage.attributes.height}
+        <h1>{post.title}</h1>
+        <CldImage
+          className={styles.thumbnail}
+          alt={post.title ?? "blog post preview"}
+          width="600"
+          height="600"
+          src={featuredImageUrl}
         />
         <div dangerouslySetInnerHTML={{ __html: htmlString }} />
       </div>
