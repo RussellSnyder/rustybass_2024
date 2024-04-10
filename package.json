@@ -19,5 +19,9 @@
   "devDependencies": {
     "concurrently": "^8.2.2",
     "copy-and-watch": "^0.1.6"
+  },
+  "dependencies": {
+    "markdown-to-jsx": "^7.4.6",
+    "react-markdown": "^9.0.1"
   }
 }

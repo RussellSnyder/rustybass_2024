@@ -1,4 +1,4 @@
-import { CldImage } from "next-cloudinary";
+import { AdvancedImage } from "@cloudinary/react";
 import Head from "next/head";
 import Link from "next/link";
 import { BlogPost } from "../../../types/__generated__/api/blog-post/content-types/blog-post/blog-post";
@@ -23,7 +23,6 @@ interface BlogProps {
 }
 
 export default function Blog({ blogPosts }: BlogProps) {
-  console.log(blogPosts);
   return (
     <>
       <Head>
@@ -38,13 +37,17 @@ export default function Blog({ blogPosts }: BlogProps) {
               <div className={styles.flexing} key={blogPost.id}>
                 <Link href={`/blog/${blogPost.id}`}>
                   <div className={styles.featuredImageContainer}>
-                    <CldImage
+                    <AdvancedImage
+                      cldImg={getThumbnail(blogPost.attributes.imageId)}
+                    />
+
+                    {/* <Image
                       className={styles.thumbnail}
                       alt={blogPost.attributes.title ?? "blog post preview"}
                       width="600"
                       height="600"
-                      src={getThumbnail(blogPost.attributes.imageId)}
-                    />
+                      src={getCloudinaryUrl(blogPost.attributes.imageId)}
+                    /> */}
                   </div>
                   <h2>{blogPost.attributes.title}</h2>
                   <div>

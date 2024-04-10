@@ -18,14 +18,6 @@
     "description": {
       "type": "text"
     },
-    "featuredImage": {
-      "type": "media",
-      "multiple": false,
-      "required": true,
-      "allowedTypes": [
-        "images"
-      ]
-    },
     "body": {
       "type": "richtext"
     },
