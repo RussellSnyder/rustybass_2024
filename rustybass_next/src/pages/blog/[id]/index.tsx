@@ -70,7 +70,7 @@ const BlogPost = ({ post, markdown, htmlString }: PostProps) => {
         <title>{post.title}</title>
         <meta name="description" content={post.description} />
       </Head>
-      <div className="mt-8">
+      <div className="mt-8 min-h-screen">
         <h1 className="text-6xl mb-12">{post.title}</h1>
         <AdvancedImage
           className="mb-8"

@@ -1,5 +1,8 @@
 import { Inter } from "next/font/google";
 import "../styles/globals.css";
+import { Header } from "./header";
+import { Footer } from "./footer";
+import style from "./layout.module.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -10,9 +13,11 @@ export default function Layout({
 }>) {
   return (
     <>
-      <nav>header Coming soon</nav>
-      <main className="max-w-screen-lg m-auto px-4 py-8">{children}</main>
-      <footer>footer Coming soon</footer>
+      <Header className={style.header} />
+      <main className={`${style.main}`}>
+        <div className="max-w-screen-lg m-auto py-8">{children}</div>
+      </main>
+      <Footer className={style.footer} />
     </>
   );
   // TODO figure out how to do a static layout

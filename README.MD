@@ -37,3 +37,21 @@ Images hosted on cloudinary (free)
 Host Strapi somewhere
 - SSG in the cloud
 
+## TODOS
+
+- [ ] create header / footer
+- [ ] create homepage to move to blog
+- [ ] write 5 blog posts
+- [ ] create Projects section
+- [ ] write 5 projects
+- [ ] write 5 more blog posts
+- [ ] write 5 more projects
+- [ ] Add tagging/article series system
+- [ ] create search functionality
+- [ ] Get Irini to review design
+- [ ] Tweek SEO
+- [ ] LAUNCH
+- [ ] Promote individual blog posts and projects on linkedin
+
+
+
