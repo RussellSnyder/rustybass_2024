@@ -7,16 +7,7 @@ export const metadata: Metadata = {
 };
 
 import { AppProps } from "next/app";
-import { ReactNode } from "react";
 import Layout from "../components/layout";
-
-const SafeHydrate: FunctionComponent<{ children: ReactNode }> = ({
-  children,
-}) => (
-  <div suppressHydrationWarning>
-    {typeof window === "undefined" ? null : children}
-  </div>
-);
 
 const App: FunctionComponent<AppProps> = ({ Component, pageProps }) => {
   return (

@@ -8,7 +8,13 @@ export default function Layout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <div>{children}</div>;
+  return (
+    <>
+      <nav>header Coming soon</nav>
+      <main className="max-w-screen-lg m-auto px-4 py-8">{children}</main>
+      <footer>footer Coming soon</footer>
+    </>
+  );
   // TODO figure out how to do a static layout
   // return (
   //   <html lang="en" suppressHydrationWarning>

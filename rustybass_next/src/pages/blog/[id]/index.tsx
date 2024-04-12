@@ -1,12 +1,17 @@
 import { AdvancedImage } from "@cloudinary/react";
 import fm from "front-matter";
-import Markdown from "markdown-to-jsx";
+import { useEffect, useState } from "react";
+
+// TODO figure out how to get this to work with SSR
+const Markdown = dynamic(() => import("markdown-to-jsx"), { ssr: false });
+
+import "highlight.js/styles/a11y-dark.min.css";
 import { marked } from "marked";
+import dynamic from "next/dynamic";
 import Head from "next/head";
 import type { BlogPost } from "../../../../types/__generated__/api/blog-post/content-types/blog-post/blog-post";
 import { overrides } from "../../../components/markdown-components";
 import { getBlogPostImage } from "../../../utils/image";
-import styles from "./blog-post.module.css";
 
 export const getStaticPaths = async () => {
   const response = await fetch(
@@ -41,6 +46,7 @@ export const getStaticProps = async ({
     props: {
       post,
       markdown,
+      htmlString,
     },
   };
 };
@@ -48,25 +54,40 @@ export const getStaticProps = async ({
 interface PostProps {
   post: BlogPost["attributes"];
   markdown: string;
+  htmlString: string;
 }
 
-const BlogPost = ({ post, markdown }: PostProps) => {
+const BlogPost = ({ post, markdown, htmlString }: PostProps) => {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   return (
     <>
       <Head>
         <title>{post.title}</title>
         <meta name="description" content={post.description} />
       </Head>
-      <div className={styles.post}>
-        <h1 className="bg-slate-950">{post.title}</h1>
-        <AdvancedImage cldImg={getBlogPostImage(post.imageId)} />
-        <Markdown
-          options={{
-            overrides,
-          }}
-        >
-          {markdown}
-        </Markdown>
+      <div className="mt-8">
+        <h1 className="text-6xl mb-12">{post.title}</h1>
+        <AdvancedImage
+          className="mb-8"
+          cldImg={getBlogPostImage(post.imageId)}
+        />
+        {isClient ? (
+          <Markdown
+            wrapper="article"
+            options={{
+              overrides,
+            }}
+          >
+            {markdown}
+          </Markdown>
+        ) : (
+          <div dangerouslySetInnerHTML={{ __html: htmlString }} />
+        )}
       </div>
     </>
   );

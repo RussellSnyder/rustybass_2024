@@ -7,7 +7,7 @@
     "sync:types:common": "copy-and-watch --watch \"./rustybass_strapi/src/common/**/*.ts\" \"./rustybass_next/types/__generated__/common\"",
     "sync:types:api": "copy-and-watch --watch \"./rustybass_strapi/src/api/**/*.ts\" \"./rustybass_next/types/__generated__/api\"",
     "sync:types": "concurrently --kill-others \"npm run sync:types:common\" \"npm run sync:types:api\"",
-    "dev:backend": "npm run --prefix ./rustybass_strapi develop",
+    "dev:backend": "npm run --prefix ./rustybass_strapi dev",
     "dev:frontend": "npm run --prefix ./rustybass_next dev",
     "build:frontend": "npm run --prefix ./rustybass_next build",
     "build": "npm run build:frontend",
